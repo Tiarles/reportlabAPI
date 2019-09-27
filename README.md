@@ -38,7 +38,7 @@ For this report style you can set the ``title`` and the
         'member 2.'
 ```
 
-![](docs/images/0001.png)
+![](docs/images/00001.jpg)
 
 Create a new ``chapter``:
 
@@ -54,7 +54,7 @@ And add some ``subtitles``:
     addSubtitle('Subltile 2')
 ```
 
-![](docs/images/0002.png)
+![](docs/images/00002.jpg)
 
 Create some ``summaryTables`` like that:
 
@@ -74,7 +74,7 @@ Create some ``summaryTables`` like that:
     sumarryTable(df1, df2, master_rows_name=('AAA', 'BBB'))
 ```
 
-![](docs/images/0003.png)
+![](docs/images/00003.jpg)
 
 Or with some lines of code ``colorful detailed tables`` like that:
 
@@ -119,7 +119,7 @@ Or with some lines of code ``colorful detailed tables`` like that:
     detailed_Table_df(df_subt, maxValue=max2)
 ```
 
-![](docs/images/0004.png)
+![](docs/images/00004.jpg)
 
 Also ``no color detailed tables``:
 
@@ -130,7 +130,7 @@ Also ``no color detailed tables``:
     detailed_Table_df(df_subt, maxValue=max2, mode='no_color')
 ```
 
-![](docs/images/0005.png)
+![](docs/images/00005.jpg)
 
 And ``limitation detailed tables``:
 
@@ -141,7 +141,7 @@ And ``limitation detailed tables``:
 	detailed_Table_df(df_subt, maxValue=max2*1.5, minValue=0, mode='red_limit')
 ```
 
-![](docs/images/0006.png)
+![](docs/images/00006.jpg)
 
 For finish you can set a list of ``member`` and 
 ``acknowledgements`` for the credits:
@@ -155,9 +155,13 @@ For finish you can set a list of ``member`` and
     build_credits(acknow, members)
 ```
 
-![](docs/images/0007.png)
+![](docs/images/00007.jpg)
 
 And ``save`` and open using this codeline:
 ```python
     openf(save_doc('Test_', withDate=True))
 ```
+
+This is the final result:
+
+![](docs/images/00008.jpg)
