@@ -52,7 +52,7 @@ folder_inputs = './input/' # Folder for inputs
 
 folder_figures = folder_inputs + 'figures_docs/'
 
-folder_fonts = os.path.realpath(__file__).replace('__init__.py', 'Fonts\\')
+folder_fonts = os.path.realpath(__file__).replace('__init__.py', 'fonts\\')
 
 pdfmetrics.registerFont(TTFont("Cambria", folder_fonts+'Cambria.ttf'))
 pdfmetrics.registerFont(TTFont("Cambria Bold", folder_fonts+'Cambria Bold.ttf'))
