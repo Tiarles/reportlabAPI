@@ -1,5 +1,8 @@
 # reportlabAPI: an API to work with reportlab and pdfrw 
 
+The images present in this documentation is the PDF report generated
+after all the codelines runs.
+
 ## Getting started
 
 First you can import some modules like:
@@ -35,6 +38,8 @@ For this report style you can set the ``title`` and the
         'member 2.'
 ```
 
+![](docs/images/0001.png)
+
 Create a new ``chapter``:
 
 ``` python
@@ -49,23 +54,27 @@ And add some ``subtitles``:
     addSubtitle('Subltile 2')
 ```
 
+![](docs/images/0002.png)
+
 Create some ``summaryTables`` like that:
 
 ```python
     df1 = pd.DataFrame({4:{1:5, 2:6, 3:7},
                        5:{1:6, 2:'B=Vey', 3:8},
-                       6:{1:7, 2:8, 3:9}
+                       6:{1:7, 2:8, 3:9},
                        12:{1:'B=Vey', 2:MSG_NOT_COMPLY, 3:9}})
 
     df2 = pd.DataFrame({9:{1:3, 2:2, 3:MSG_COMPLY},
                         99:{1:4, 2:3, 3:MSG_NOT_COMPLY},
                         999:{1:5, 2:4, 3:MSG_COMPLY},
-                       9999:{1:MSG_NOT_COMPLY, 2:MSG_COMPLY, 3:MSG_COMPLY}
+                       9999:{1:MSG_NOT_COMPLY, 2:MSG_COMPLY, 3:MSG_COMPLY},
                        99989:{1:'vEY', 2:MSG_COMPLY, 3:MSG_COMPLY},
                        15:{1:'vEY', 2:MSG_COMPLY, 3:MSG_COMPLY}})
 
     sumarryTable(df1, df2, master_rows_name=('AAA', 'BBB'))
 ```
+
+![](docs/images/0003.png)
 
 Or with some lines of code ``colorful detailed tables`` like that:
 
@@ -110,6 +119,8 @@ Or with some lines of code ``colorful detailed tables`` like that:
     detailed_Table_df(df_subt, maxValue=max2)
 ```
 
+![](docs/images/0004.png)
+
 Also ``no color detailed tables``:
 
 ```python
@@ -119,14 +130,18 @@ Also ``no color detailed tables``:
     detailed_Table_df(df_subt, maxValue=max2, mode='no_color')
 ```
 
+![](docs/images/0005.png)
+
 And ``limitation detailed tables``:
 
 ```python
     new_chapter('detailed_Table_red_limit')
 
-    detailed_Table_df(df_soma, maxValue=max1*1.5, minValue=3, mode='red_limit')
-    detailed_Table_df(df_subt, maxValue=max2*1.5, minValue=3, mode='red_limit')
+    detailed_Table_df(df_soma, maxValue=max1*1.5, minValue=0, mode='red_limit')
+	detailed_Table_df(df_subt, maxValue=max2*1.5, minValue=0, mode='red_limit')
 ```
+
+![](docs/images/0006.png)
 
 For finish you can set a list of ``member`` and 
 ``acknowledgements`` for the credits:
@@ -139,6 +154,8 @@ For finish you can set a list of ``member`` and
 
     build_credits(acknow, members)
 ```
+
+![](docs/images/0007.png)
 
 And ``save`` and open using this codeline:
 ```python
