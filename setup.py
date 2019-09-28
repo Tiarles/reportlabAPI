@@ -5,7 +5,5 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=["pdfrw", "reportlab"],
-    package_data={
-   		'fonts': ['*.ttf']
-   	}
+    include_package_data=True
 )
