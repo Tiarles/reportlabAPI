@@ -1,1 +1,1 @@
-include fonts/*
+include src/reportlab/fonts/*
