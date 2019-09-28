@@ -52,13 +52,13 @@ folder_inputs = './input/' # Folder for inputs
 
 folder_figures = folder_inputs + 'figures_docs/'
 
-from zipfile import ZipFile
+# from zipfile import ZipFile
 
-pathFontsZip = os.path.realpath(__file__).replace('__init__.py', 'fonts.zip')
-pathFontsExtract = os.path.realpath(__file__).replace('__init__.py', '')
+# pathFontsZip = os.path.realpath(__file__).replace('__init__.py', 'fonts.zip')
+# pathFontsExtract = os.path.realpath(__file__).replace('__init__.py', '')
 
-with ZipFile(pathFontsZip, 'r') as fzip:
-    fzip.extractall(pathFontsExtract)
+# with ZipFile(pathFontsZip, 'r') as fzip:
+#     fzip.extractall(pathFontsExtract)
 
 folder_fonts = os.path.realpath(__file__).replace('__init__.py', 'fonts\\')
 
