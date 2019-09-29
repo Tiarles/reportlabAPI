@@ -3,6 +3,14 @@
 The images present in this documentation is the PDF report generated
 after all the codelines runs.
 
+## Installing
+
+Open the terminal and execute:
+
+```command
+    pip install git+https://github.com/Tiarles/reportlabAPI.git
+```
+
 ## Getting started
 
 First you can import some modules like:
