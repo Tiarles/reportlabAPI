@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-"""  
+"""
     This is the main file of xxx
-    
+
     Test Name: xxx
-    
+
     Description: xxx
-    
-    @author: Tiarles Guterres, Henrique Magnago, Henrique Jank 
+
+    @author: Tiarles Guterres, Henrique Magnago, Henrique Jank
 
 """
 
@@ -15,8 +15,8 @@
 
 import datetime
 #import tempfile
-import os  
-#import reportlab 
+import os
+#import reportlab
 import numpy as np
 
 import matplotlib.pyplot as plt
@@ -52,7 +52,7 @@ folder_inputs = './input/' # Folder for inputs
 
 folder_figures = folder_inputs + 'figures_docs/'
 
-folder_fonts = os.path.realpath(__file__).replace('__init__.py', 'fonts\\')
+folder_fonts = os.path.realpath(__file__).replace('__init__.py', 'Fonts\\')
 
 pdfmetrics.registerFont(TTFont("Cambria", folder_fonts+'Cambria.ttf'))
 pdfmetrics.registerFont(TTFont("Cambria Bold", folder_fonts+'Cambria Bold.ttf'))
@@ -115,7 +115,7 @@ class PdfImage(Flowable):
     '''
     PdfImage wraps the first page from a PDF file as a Flowable.
     which can be included into a ReportLab Platypus document.
-    Based on the vectorpdf extension in rst2pdf 
+    Based on the vectorpdf extension in rst2pdf
     (http://code.google.com/p/rst2pdf/)
     '''
 
@@ -175,7 +175,7 @@ class PdfImage(Flowable):
 
 class OneColumnTemplate(PageTemplate):
     '''
-        Heir of the class PageTemplate from reportlab.platypus is a type of 
+        Heir of the class PageTemplate from reportlab.platypus is a type of
         PDF page inserted in report an used in the RLDocTemplate class.
     '''
 
@@ -189,7 +189,7 @@ class OneColumnTemplate(PageTemplate):
                        self.pageWidth - 2*2.54*cm,
                        self.pageHeight - 2.54*cm - 1.25*cm - (title_1_style.fontSize*2), id = 'Normal')
         PageTemplate.__init__(self, id, [frame2])  # note lack of onPage
-        
+
     def afterDrawPage(self, canvas, doc):
         canvas.saveState()
 
@@ -223,7 +223,7 @@ class OneColumnTemplate(PageTemplate):
         y = margins['bottom'] - normal_style.leading
         x = width - margins['right'] - 10
         ptxt.drawOn(canvas, x, y)
-        
+
         chapter_title = doc.chapter
         txt = str(chapter_title)
         ptxt = Paragraph('<font color = "{color}">{txt}</font>'.format(color = blue, txt = txt),title_1_style)
@@ -247,10 +247,10 @@ class OneColumnTemplate(PageTemplate):
 
         canvas.restoreState()
 
- 
+
 class Credits(PageTemplate):
     '''
-        Heir of the class PageTemplate from reportlab.platypus is a type of 
+        Heir of the class PageTemplate from reportlab.platypus is a type of
         PDF page inserted in report an used in the RLDocTemplate class.
     '''
     global logo_width, logo_height
@@ -266,7 +266,7 @@ class Credits(PageTemplate):
                        self.pageWidth - 2*2.54*cm,
                        self.pageHeight - 2.54*cm - 1.25*cm  - 1.75*cm - (title_1_style.fontSize*2) - logo_height, id = 'Credits')
         PageTemplate.__init__(self, id, [frame3])  # note lack of onPage
-        
+
     def afterDrawPage(self, canvas, doc):
         canvas.saveState()
 
@@ -300,7 +300,7 @@ class Credits(PageTemplate):
         y = margins['bottom'] - normal_style.leading
         x = width - margins['right'] - 10
         ptxt.drawOn(canvas, x, y)
-        
+
         chapter_title = doc.chapter
         txt = str(chapter_title)
         ptxt = Paragraph('<font color = "{color}">{txt}</font>'.format(color = blue, txt = txt),title_1_style)
@@ -325,21 +325,21 @@ class Credits(PageTemplate):
         from reportlab.platypus import Image
 #        logo = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo1.png')
         logo = os.path.realpath(__file__).replace('__init__.py', 'logo1.png')
-        
+
         I = Image(logo)
         I.drawHeight = logo_height
         I.drawWidth = logo_width
         x = margins['right'] + (ef_width-logo_width)/2.0
         y = self.pageHeight - 2.54*cm - 1.25*cm - (title_1_style.fontSize*2) - logo_height
         I.drawOn(canvas, x, y)
-        
+
         canvas.restoreState()
 
 
 class RLDocTemplate(BaseDocTemplate):
     '''
-        Heir of the class BaseDocTemplate from reportlab.platypus is a type of 
-        doc used to generate the report starting from a list of Flowables 
+        Heir of the class BaseDocTemplate from reportlab.platypus is a type of
+        doc used to generate the report starting from a list of Flowables
         construct in ``Report_RUN.py`` module.
     '''
     def afterInit(self):
@@ -366,7 +366,7 @@ class RLDocTemplate(BaseDocTemplate):
             if style == 'Title':
                 self.title = txt
             elif style == 'Heading1':
-                self.chapter = txt 
+                self.chapter = txt
                 key = 'ch%s' % self.seq.nextf('chapter')
                 self.canv.bookmarkPage(key)
                 self.canv.addOutlineEntry(txt, key, 0, 0)
@@ -379,10 +379,10 @@ class RLDocTemplate(BaseDocTemplate):
                 self.canv.addOutlineEntry(txt, key, 1, 0)
                 self.notify('TOCEntry', (1, txt, self.page, key))
 
-        
+
 class FrontCoverTemplate(PageTemplate):
     '''
-    Heir of the class PageTemplate from reportlab.platypus is a type of 
+    Heir of the class PageTemplate from reportlab.platypus is a type of
     PDF page inserted in report an used in the RLDocTemplate class.
     '''
     def __init__(self, id, pageSize = A4):
@@ -396,10 +396,10 @@ class FrontCoverTemplate(PageTemplate):
 
     def afterDrawPage(self, canvas, doc):
         canvas.saveState()
-        
+
         logo_height = 2.4*cm
         logo_width = 8.9*cm#logo_width = 2.54*cm
-        
+
 
         txt = 'Test report'
         ptxt = Paragraph('<font color = "{color}">{txt}</font>'.format(color = darkblue, txt = txt),title_style)
@@ -454,7 +454,7 @@ class FrontCoverTemplate(PageTemplate):
 #        logo = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo1.png')
         logo = os.path.realpath(__file__).replace('__init__.py', 'logo1.png')
 
-        
+
         I = Image(logo)
         I.drawHeight = logo_height
         I.drawWidth = logo_width
@@ -475,11 +475,11 @@ class FrontCoverTemplate(PageTemplate):
 #%% Tables
 
 def sumarryTable(df1, df2,
-                 master_rows_name = ('Steady State', 'Transient'), 
+                 master_rows_name = ('Steady State', 'Transient'),
                  title_table = 'Report summary'):
     N_transient = df2.columns.size
 
-    table = np.zeros((df1.index.size + 3, 
+    table = np.zeros((df1.index.size + 3,
                       df1.columns.size + df2.columns.size+1)).tolist()
 
     table[0][0] = Paragraph('Table <seq id = "table"/> - ' + title_table,
@@ -488,10 +488,10 @@ def sumarryTable(df1, df2,
     table[2][0] = Paragraph('', table_style)
     table[1][df1.columns.size+1] = Paragraph(master_rows_name[1],table_style)
     table[1][1] = Paragraph(master_rows_name[0],table_style)
-    
+
     # Generate the first part of the summary table (df1)
     T_line = 3
-    
+
     for index in df1.index:
         print(index)
         line = df1.loc[index]
@@ -502,14 +502,14 @@ def sumarryTable(df1, df2,
             cell = line[icolumn]
             table[T_line][T_column] = Paragraph(str(cell),table_style)
             table[2][T_column] = Paragraph(str(icolumn),table_style)
-            
+
             T_column = T_column + 1
         T_line = T_line + 1
-    
+
     # Generate the second part of the summary table (df2)
-    
+
     T_line = 3
-    
+
     for index in df2.index:
         line = df2.loc[index]
 #        column = df2[icolumn]
@@ -524,9 +524,9 @@ def sumarryTable(df1, df2,
 
             T_column = T_column + 1
         T_line = T_line + 1
-        
+
     t = Table(table)
-    
+
     t.setStyle(TableStyle([('INNERGRID', (0,0), (-1,-1), 0.5, colors.black),
                ('BOX', (0,1), (-1,-1), 2, colors.black),
                ('LINEABOVE', (0,2), (-1,2), 2, colors.black),
@@ -541,7 +541,7 @@ def sumarryTable(df1, df2,
                ('ALIGN',(0,1),(-1,-1),'CENTER'),
                ('VALIGN',(0,1),(-1,-1),'MIDDLE'),
               ]))
-    
+
     report.append(Spacer(1,20))
     report.append(t)
     report.append(Spacer(1,20))
@@ -551,19 +551,19 @@ def putInSubViaLatex(line):
     line_ret = line_ret.replace('}', '</sub>')
     return line_ret
 
-def detailed_Table_df(dataframe, maxValue=np.nan, minValue=np.nan, 
-                      caption='', corner = ' ', 
-                      decimation = 2, latexSub=False, notation=False, 
-                      mode='colorful'):
+def detailed_Table_df(dataframe, maxValue=None, minValue=None,
+                      caption='', corner = ' ',
+                      decimation = 2, latexSub=False, notation=False,
+                      mode='colorful', maxValueColumns={}):
     '''
-    DOCSTRING AQUI !!!
-    
+    The minValue is used only to mode = 'red_limit'.
+    The maxValueColumns is used only to mode = 'colorful_by_columns'.
     '''
-    
-    if np.isnan(maxValue):
+
+    if maxValue is None:
         maxValue = dataframe.max().max()
-    if np.isnan(minValue):
-        minValue = dataframe.max().max()
+    if minValue is None:
+        minValue = dataframe.min().min()
 
     dict_df = {}
     for column in dataframe.columns:
@@ -571,21 +571,21 @@ def detailed_Table_df(dataframe, maxValue=np.nan, minValue=np.nan,
         for index in dataframe.index:
             dict_df[(column, index)] = line[index]
 
-    detailed_Table(dict_df, 
+    detailed_Table(dict_df,
                    np.array(dataframe.index),
-                   np.array(dataframe.columns), 
+                   np.array(dataframe.columns),
                    maxValue, minValue=minValue, caption=caption,
                    corner=corner, decimation=decimation,
-                   latexSub=latexSub, notation=notation, mode=mode)
-        
-def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corner = ' ', 
-                   decimation = 2, latexSub=False, notation=False, 
-                   mode='colorful'):
+                   latexSub=latexSub, notation=notation, mode=mode,
+                   maxValueColumns=maxValueColumns)
 
+def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corner = ' ',
+                   decimation = 2, latexSub=False, notation=False,
+                   mode='colorful', maxValueColumns={}):    
     '''
-    Function like detailed_Tables (Depreciated), but with only one table 
+    Function like detailed_Tables (Depreciated), but with only one table
     at time per test.
-    
+
     @author: Tiarles Guterres
     '''
 
@@ -617,9 +617,9 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
                     else:
                         table[T_line + 2][0] = Paragraph(i, table_style)
                 else:
-                    table[T_line + 2][0] = Paragraph(str(np.round(i,2)), \
+                    table[T_line + 2][0] = Paragraph(str(np.round(i,2)),
                                                      table_style)
-            
+
             if T_line == 0:
                 if isinstance(j, str):
                     if latexSub:
@@ -630,14 +630,14 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
                 else:
                     table[1][T_column+1] = Paragraph(str(np.round(j,2)), \
                          table_style)
-            
+
             value = data[(j, i)]
-            
+
 #            if isinstance(i, str) or isinstance(j, str):
 #                value = data[(j, i)]
 #            else:
 #                value = data[(np.round(j, 2), np.round(i, 2))]
-            
+
             if np.isnan(value):
                 table[T_line+2][T_column+1] = Paragraph('NaN', table_style)
             elif np.isinf(value):
@@ -655,29 +655,29 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
                 tableMin = value
             if value > tableMax:
                 tableMax = value
-            
+
             table_float[T_line+2][T_column+1] = value
-            
+
             T_column = T_column + 1
         T_line = T_line + 1
-    
+
     # N-2) Create the Table flowable in reportlab
-    
+
     t = Table(table)
     t.setStyle(TableStyle(
-            [('INNERGRID', (0,0), (-1,-1), 0.5, colors.black),
-             ('BOX', (0,1), (-1,-1), 2, colors.black),
-             ('LINEABOVE', (0,2), (-1,2), 2, colors.black),
-             ('LINEBEFORE', (1,1), (1,-1), 2, colors.black),
-             ('SPAN', (0,0), (-1,0)),
-             ('ALIGN',(0,0),(0,0),'CENTER'),
-             ('ALIGN',(0,1),(-1,-1),'CENTER')]))
-    
+                [('INNERGRID', (0,0), (-1,-1), 0.5, colors.black),
+                 ('BOX', (0,1), (-1,-1), 2, colors.black),
+                 ('LINEABOVE', (0,2), (-1,2), 2, colors.black),
+                 ('LINEBEFORE', (1,1), (1,-1), 2, colors.black),
+                 ('SPAN', (0,0), (-1,0)),
+                 ('ALIGN',(0,0),(0,0),'CENTER'),
+                 ('ALIGN',(0,1),(-1,-1),'CENTER')]))
+
     # N-2) Normalize the table values
-    
+
     for ind1, aux1 in enumerate(table_float):
         for ind2, aux2 in enumerate(aux1):
-        
+
             if (tableMax == tableMin):
                 Normalized[ind1][ind2] = 0
             elif (maxValue == tableMin or maxValue == tableMax):
@@ -691,14 +691,14 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
     if mode == 'colorful':
         for ind1, aux1 in enumerate(table_float):
             for ind2, aux2 in enumerate(aux1):
-                if (ind1 >= 2 and ind2 >= 1):        
+                if (ind1 >= 2 and ind2 >= 1):
                     c = Normalized[ind1][ind2]
                     #print("table_float: ",table_float[ind1][ind2])
                     #print("c:",c)
                     if np.isnan(c) or np.isinf(c):
                         #print('Inf or Nan:', table_float[ind1][ind2])
-                        R, G, B = (0.8235294117647058, 
-                                   0.45294117647058824, 
+                        R, G, B = (0.8235294117647058,
+                                   0.45294117647058824,
                                    0.45294117647058824)
                     elif table_float[ind1][ind2] <= maxValue:
                         R = (100.0 + 155.0*c)/255.0
@@ -708,34 +708,59 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
                         R = (255.0 -  50.0*c)/255.0
                         G = (255.0 - 155.0*c)/255.0
                         B = (255.0 - 155.0*c)/255.0
-    
-                    if not (np.isfinite(R) and np.isfinite(G) and 
+
+                    if not (np.isfinite(R) and np.isfinite(G) and
                             np.isfinite(B)):
                         raise Exception('RGB value not valid!')
-    
-                    t.setStyle(TableStyle([('BACKGROUND', 
-                                            (ind2,ind1), 
-                                            (ind2,ind1), 
+
+                    t.setStyle(TableStyle([('BACKGROUND',
+                                            (ind2,ind1),
+                                            (ind2,ind1),
                                             (R,G,B))]))
     elif mode == 'red_limit':
-            for ind1, aux1 in enumerate(table_float):
-                for ind2, aux2 in enumerate(aux1):
-                    if (ind1 >= 2 and ind2 >= 1): 
-                        if (maxValue < table_float[ind1][ind2] or 
+        for ind1, aux1 in enumerate(table_float):
+            for ind2, aux2 in enumerate(aux1):
+                if (ind1 >= 2 and ind2 >= 1):
+                    if (maxValue < table_float[ind1][ind2] or
                             minValue > table_float[ind1][ind2]):
-                            R, G, B = (0.8235294117647058, 0.45294117647058824, 
-                                       0.45294117647058824)
-                            t.setStyle(TableStyle([('BACKGROUND', 
-                                                    (ind2,ind1), 
-                                                    (ind2,ind1), 
-                                                    (R,G,B))]))
-    
+                        R, G, B = (0.8235294117647058, 0.45294117647058824,
+                                   0.45294117647058824)
+                        t.setStyle(TableStyle([('BACKGROUND',
+                                                (ind2, ind1),
+                                                (ind2, ind1),
+                                                (R, G, B))]))
+
+    elif mode == 'colorful_by_columns':
+        for aux1_n, aux1_v in enumerate(table_float):
+            for aux2_n, aux2_v in enumerate(aux1_v):
+                if aux1_n >= 2 and aux2_n>=1:
+                    TH = maxValueColumns[[*maxValueColumns][aux2_n-1]]
+                    TF = table_float[aux1_n][aux2_n]
+                    if (tableMax == tableMin):
+                        c = 0
+                    elif (TH == tableMin or TH == tableMax):
+                        c = (TF - tableMin) / (tableMax - tableMin)
+                    elif TF <= TH:
+                        c = (TF - tableMin) / (TH - tableMin)
+                    else:
+                        c = (TF - TH) / (tableMax - TH)
+                    if TF <= TH:
+                        G = (205.0+50.0*c)/255.0
+                        R = (100.0+155.0*c)/255.0
+                        B = (100.0+155.0*c)/255.0
+                    else:
+                        R = (255.0-50.0*c)/255.0
+                        G = (250.0-150.0*c)/255.0
+                        B = (250.0-150.0*c)/255.0
+                    t.setStyle(TableStyle([('BACKGROUND',(aux2_n,aux1_n),
+                                            (aux2_n,aux1_n),(R,G,B))]))
+
     # N) Insert a space before table and insert the table in report list flow
     report.append(Spacer(1,5))
     report.append(t)
 
-    
-#%% 
+
+#%%
 #Textual Functions
 
 def addPageBreak():
@@ -769,7 +794,7 @@ def addSpacer(width, height):
 #    Method that add a text like subtitle in the report list.
 #    '''
 #    addTextParagraph('<font color = "{color}"><seq template = "%(chapter)s.' +
-#        '%(subchapter+)s"/>{txt}</font>'.format(txt = " "+txt, 
+#        '%(subchapter+)s"/>{txt}</font>'.format(txt = " "+txt,
 #            color = lightblue), style='title_2')
 
 
@@ -778,7 +803,7 @@ def addSpacer(width, height):
 #    Method that add a text like subtitle in the report list.
 #    '''
 #    addTextParagraph('<font color = "{color}"><seq template = "%(chapter)s.'+
-#        '%(subchapter+)s"/>{txt}</font>'.format(txt = " "+txt, 
+#        '%(subchapter+)s"/>{txt}</font>'.format(txt = " "+txt,
 #          color = lightblue), style='title_2')
 
 #def addSubtitle(txt):
@@ -786,9 +811,9 @@ def addSpacer(width, height):
 #    Method that add a text like subtitle in the report list.
 #    '''
 #    addTextParagraph('<font color = "{color}"><seq template = "%(chapter)s.\
-#%(subchapter+)s"/>{txt}</font>'.format(txt = " "+txt, color = lightblue), 
+#%(subchapter+)s"/>{txt}</font>'.format(txt = " "+txt, color = lightblue),
 #    style='title_2')
-        
+
 def addSubtitle(txt):
     '''
     Method that add a text like subtitle in the report list.
@@ -799,7 +824,7 @@ def addSubtitle(txt):
 
 def addTextParagraph(txt, style='text'):
     '''
-        This function put the text inserted in a text Paragraph style and 
+        This function put the text inserted in a text Paragraph style and
         add in report.
 
         Parameters
@@ -807,7 +832,7 @@ def addTextParagraph(txt, style='text'):
         text: str
             The text who wants to paragraph in report.
         style: bool
-        
+
         Returns
         -------
         If no one exception occurs, return True, else False.
@@ -834,7 +859,7 @@ def new_chapter(txt):
     report.append(PageBreak())
 
     ptxt = Paragraph('<font color = "{color}">{txt}</font>'.\
-    format(color = white, txt = '<seq id = "chapter"/>   ' + txt + 
+    format(color = white, txt = '<seq id = "chapter"/>   ' + txt +
         '<seqreset id="subchapter"/>'), title_1_style)
 
     report.append(ptxt)
@@ -854,7 +879,7 @@ def insert_figure(figname, caption):
     fig_pdf = PdfImage(figname)
     fig_pdf.hAlign = 'CENTER'
 #    insert_figure(fig_pdf, caption)
-    
+
     tabledata = [[[fig_pdf,Paragraph('Figure <seq id = "figure"/> - ' + caption,legend_style)]]]
     tab = Table(tabledata)
     report.append(tab)
@@ -866,28 +891,28 @@ report = []
 
 def build_doc(test_name, test_description):
     global Test_Name, User_description, doc, report
-    
+
     report = []
-    
+
     Test_Name = test_name
     User_description = test_description
-    
+
     doc = RLDocTemplate("report.pdf", pagesize = A4,
                         rightMargin = 2.54*cm, leftMargin = 2.54*cm,
                         topMargin = 2.54*cm, bottomMargin = 1.25*cm)
-    
+
     reset_indexes()
 
 def build_cover():
     '''
-        Add a Normal Page template (the Cover) to report list. 
+        Add a Normal Page template (the Cover) to report list.
     '''
     report.append(NextPageTemplate('Normal'))
 
 
 def build_credits(acknowledgement, members):
     '''
-        Breaks the document and add a Credits template (the credits chapter) to report list. 
+        Breaks the document and add a Credits template (the credits chapter) to report list.
     '''
     report.append(NextPageTemplate('Credits'))
     report.append(PageBreak())
@@ -897,7 +922,7 @@ def build_credits(acknowledgement, members):
     report.append(Paragraph('Acknowledgement: ' + acknowledgement ,v10_style))
     report.append(Spacer(1,5))
     report.append(Paragraph('Developed by:',v10_style))
-    
+
     for member in members:
         report.append(Paragraph(member,v10_style))
 

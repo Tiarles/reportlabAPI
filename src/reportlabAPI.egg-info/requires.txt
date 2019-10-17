@@ -1,2 +1,5 @@
 pdfrw
 reportlab
+numpy
+pandas
+matplotlib

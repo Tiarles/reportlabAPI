@@ -2,8 +2,22 @@ README.md
 setup.py
 src/reportlabAPI/__init__.py
 src/reportlabAPI/defines.py
+src/reportlabAPI/logo1.png
 src/reportlabAPI.egg-info/PKG-INFO
 src/reportlabAPI.egg-info/SOURCES.txt
 src/reportlabAPI.egg-info/dependency_links.txt
 src/reportlabAPI.egg-info/requires.txt
 src/reportlabAPI.egg-info/top_level.txt
+src/reportlabAPI/fonts/Cambria Bold Italic.ttf
+src/reportlabAPI/fonts/Cambria Bold.ttf
+src/reportlabAPI/fonts/Cambria Italic.ttf
+src/reportlabAPI/fonts/Cambria.ttf
+src/reportlabAPI/fonts/Dejavusans Bold Italic.ttf
+src/reportlabAPI/fonts/Dejavusans Bold.ttf
+src/reportlabAPI/fonts/Dejavusans Italic.ttf
+src/reportlabAPI/fonts/Dejavusans.ttf
+src/reportlabAPI/fonts/VeraIt.ttf
+src/reportlabAPI/fonts/Verdana Bold Italic.ttf
+src/reportlabAPI/fonts/Verdana Bold.ttf
+src/reportlabAPI/fonts/Verdana Italic.ttf
+src/reportlabAPI/fonts/Verdana.ttf

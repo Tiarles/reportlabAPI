@@ -96,6 +96,32 @@ new_chapter('detailed_Table_red_limit')
 
 detailed_Table_df(df_soma, maxValue=max1*1.5, minValue=0, mode='red_limit')
 detailed_Table_df(df_subt, maxValue=max2*1.5, minValue=0, mode='red_limit')
+
+#%%
+
+new_chapter('detailed_Table_colorful_by_column')
+
+max_thdh = {3: 4, 5: 4, 7: 4, 9: 4, 11: 2, 13: 2, 15: 2, 17: 1.5, 19: 1.5,
+            21: 1.5, 23: 0.6, 25: 0.6, 27: 0.6, 29: 0.6, 31: 0.6}
+
+columns = [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25]
+indexes = ['0, 0°', '0, 45°', '5, 0°', '5, 45°', '10, 0°', '10, 45°',
+           '15, 0°', '15, 45°']
+values = [[0.01,  0.2, 0.15, 0.01, 0.09, 0.08, 0.01, 0.06, 0.05, 0.01, 0.04, 0.04],
+          [ 0.0,  0.2, 0.15, 0.01, 0.09, 0.08, 0.01, 0.06, 0.05, 0.01, 0.05, 0.04],
+          [ 0.0, 1.05, 1.39, 0.0, 1.8, 1.5, 0.0, 0.07, 0.05, 0.01, 0.05, 0.05],
+          [0.01,  0.9, 1.48, 0.0, 1.85, 1.47, 0.01, 0.06, 0.05, 0.02, 0.04, 0.04],
+          [0.01, 2.09, 2.73, 0.0, 3.56, 3.05, 0.01, 0.07, 0.04, 0.0, 0.04, 0.05],
+          [0.01, 1.95, 2.83, 0.0, 3.61, 3.02, 0.0, 0.07, 0.05, 0.02, 0.06, 0.07],
+          [0.01, 3.15, 4.09, 0.01, 5.32, 4.61, 0.01, 0.07, 0.06, 0.02, 0.06, 0.05],
+          [ 0.0,  3.0, 4.18,  0.0, 5.37, 4.57, 0.01, 0.06, 0.05, 0.01, 0.05, 0.03]
+        ] 
+
+df = pd.DataFrame(values, index=indexes, columns=columns)
+
+detailed_Table_df(df, mode='colorful_by_columns', maxValueColumns=max_thdh,
+                  corner='        ')    
+
 #%%
 
 members = ['Member 1', 'Member 2', 'Member 3']
@@ -111,3 +137,7 @@ print('Building All Report')
 from webbrowser import open as openf
 
 openf(save_doc('Test_', withDate=True))
+
+#%%
+
+
