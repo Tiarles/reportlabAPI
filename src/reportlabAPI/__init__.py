@@ -903,14 +903,18 @@ def build_credits(acknowledgement, members):
 
 
 def save_doc(name, withDate=True):
-    from time import ctime
+    # from time import ctime
+    import datetime
     global doc, report
-    
+
     if withDate:
-        reportName = name+'_'+ctime().replace(':', '_').replace(' ', '_')+'.pdf'
+        # reportName = name+'_'+ctime().replace(':', '_').replace(' ', '_')+'.pdf'
+        reportName = name + '_' + \
+                     str(datetime.datetime.now()).replace('-', '_').replace(' ', '_').replace(':', '_').split('.')[0] + \
+                     '.pdf'
     else:
         reportName = name
-        
+
     doc.build(report, filename=reportName)
-    
+
     return reportName
