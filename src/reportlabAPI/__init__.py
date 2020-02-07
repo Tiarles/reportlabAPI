@@ -38,7 +38,7 @@ from pdfrw.toreportlab import makerl
 
 ## Part 1 of Definitions
 
-from reportlabAPI.defines import title_1_style, ef_width, ef_height, djv10bi_style, \
+from .defines import title_1_style, ef_width, ef_height, djv10bi_style, \
 margins, height, normal_style, width, grey, c10_style, blue, \
 legend_style, title_2_style, v10_style, lightblue, table_style, darkblue, \
 title_style, MSG_NOT_COMPLY, MSG_COMPLY, normal_style_l
@@ -546,13 +546,15 @@ def sumarryTable(df1, df2,
     report.append(t)
     report.append(Spacer(1,20))
 
+
 def putInSubViaLatex(line):
     line_ret = line.replace('_{', '<sub>')
     line_ret = line_ret.replace('}', '</sub>')
     return line_ret
 
+
 def detailed_Table_df(dataframe, maxValue=None, minValue=None,
-                      caption='', corner = ' ',
+                      caption='', corner = False,
                       decimation = 2, latexSub=False, notation=False,
                       mode='colorful', maxValueColumns={}):
     '''
@@ -571,13 +573,22 @@ def detailed_Table_df(dataframe, maxValue=None, minValue=None,
         for index in dataframe.index:
             dict_df[(column, index)] = line[index]
 
+    if corner:
+        tmp_indexes = np.array(dataframe.index, dtype=str)
+        tmp_in_size = np.array([len(index) for index in tmp_indexes])
+
+        corner2 = ' ' * tmp_in_size.max() * 2
+    else:
+        corner2 = ' '
+
     detailed_Table(dict_df,
                    np.array(dataframe.index),
                    np.array(dataframe.columns),
                    maxValue, minValue=minValue, caption=caption,
-                   corner=corner, decimation=decimation,
+                   corner=corner2, decimation=decimation,
                    latexSub=latexSub, notation=notation, mode=mode,
                    maxValueColumns=maxValueColumns)
+
 
 def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corner = ' ',
                    decimation = 2, latexSub=False, notation=False,
@@ -665,13 +676,14 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
 
     t = Table(table)
     t.setStyle(TableStyle(
-                [('INNERGRID', (0,0), (-1,-1), 0.5, colors.black),
-                 ('BOX', (0,1), (-1,-1), 2, colors.black),
-                 ('LINEABOVE', (0,2), (-1,2), 2, colors.black),
-                 ('LINEBEFORE', (1,1), (1,-1), 2, colors.black),
-                 ('SPAN', (0,0), (-1,0)),
-                 ('ALIGN',(0,0),(0,0),'CENTER'),
-                 ('ALIGN',(0,1),(-1,-1),'CENTER')]))
+            [('INNERGRID', (0,0), (-1,-1), 0.5, colors.black),
+             ('BOX', (0,1), (-1,-1), 2, colors.black),
+             ('LINEABOVE', (0,2), (-1,2), 2, colors.black),
+             ('LINEBEFORE', (1,1), (1,-1), 2, colors.black),
+             ('SPAN', (0,0), (-1,0)),
+             ('ALIGN',(0,0),(0,0),'CENTER'),
+             ('ALIGN',(0,1),(-1,-1),'CENTER')]))
+
 
     # N-2) Normalize the table values
 
@@ -700,14 +712,18 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
                         R, G, B = (0.8235294117647058,
                                    0.45294117647058824,
                                    0.45294117647058824)
-                    elif table_float[ind1][ind2] <= maxValue:
-                        R = (100.0 + 155.0*c)/255.0
-                        G = (205.0 +  50.0*c)/255.0
-                        B = (100.0 + 155.0*c)/255.0
+                    elif table_float[ind1][ind2] < maxValue:
+                        R = (.39 + .25 * c)
+                        G = (.80 + .08 * c)
+                        B = (.39 + .25 * c)
+                    elif table_float[ind1][ind2] == maxValue:
+                        R = 1.
+                        G = 1.
+                        B = 1.
                     else:
-                        R = (255.0 -  50.0*c)/255.0
-                        G = (255.0 - 155.0*c)/255.0
-                        B = (255.0 - 155.0*c)/255.0
+                        R = (.88 - .08 * c)
+                        G = (.64 - .25 * c)
+                        B = (.64 - .25 * c)
 
                     if not (np.isfinite(R) and np.isfinite(G) and
                             np.isfinite(B)):
@@ -745,13 +761,13 @@ def detailed_Table(data, x_axis, y_axis, maxValue, minValue=-1, caption='', corn
                     else:
                         c = (TF - TH) / (tableMax - TH)
                     if TF <= TH:
-                        G = (205.0+50.0*c)/255.0
-                        R = (100.0+155.0*c)/255.0
-                        B = (100.0+155.0*c)/255.0
+                        R = (.39 + .25 * c)
+                        G = (.80 + .08 * c)
+                        B = (.39 + .25 * c)
                     else:
-                        R = (255.0-50.0*c)/255.0
-                        G = (250.0-150.0*c)/255.0
-                        B = (250.0-150.0*c)/255.0
+                        R = (.88 - .08 * c)
+                        G = (.64 - .25 * c)
+                        B = (.64 - .25 * c)
                     t.setStyle(TableStyle([('BACKGROUND',(aux2_n,aux1_n),
                                             (aux2_n,aux1_n),(R,G,B))]))
 
@@ -934,9 +950,7 @@ def save_doc(name, withDate=True):
 
     if withDate:
         # reportName = name+'_'+ctime().replace(':', '_').replace(' ', '_')+'.pdf'
-        reportName = name + '_' + \
-                     str(datetime.datetime.now()).replace('-', '_').replace(' ', '_').replace(':', '_').split('.')[0] + \
-                     '.pdf'
+        reportName = name + '_' + datetime.datetime.now().strftime('%Y%m%d_%Hh%Mm%Ss') + '.pdf'
     else:
         reportName = name
 
